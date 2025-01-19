@@ -1,0 +1,764 @@
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
+]=]
+
+-- Instances: 26 | Scripts: 9 | Modules: 0 | Tags: 0
+local G2L = {};
+
+-- StarterGui.f3xmain
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"]["Name"] = [[f3xmain]];
+G2L["1"]["ResetOnSpawn"] = false;
+
+
+-- StarterGui.f3xmain.Frame
+G2L["2"] = Instance.new("Frame", G2L["1"]);
+G2L["2"]["Active"] = true;
+G2L["2"]["BorderSizePixel"] = 0;
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2"]["Size"] = UDim2.new(0.31294, 0, 0.35323, 0);
+G2L["2"]["Position"] = UDim2.new(0.08288, 0, 0.46517, 0);
+G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+
+
+-- StarterGui.f3xmain.Frame.top
+G2L["3"] = Instance.new("Frame", G2L["2"]);
+G2L["3"]["BorderSizePixel"] = 0;
+G2L["3"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3"]["Size"] = UDim2.new(1, 0, 0.12438, 0);
+G2L["3"]["Position"] = UDim2.new(0, 0, 0, 0);
+G2L["3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3"]["Name"] = [[top]];
+
+
+-- StarterGui.f3xmain.Frame.top.UIStroke
+G2L["4"] = Instance.new("UIStroke", G2L["3"]);
+G2L["4"]["Thickness"] = 7;
+G2L["4"]["Color"] = Color3.fromRGB(255, 0, 0);
+
+
+-- StarterGui.f3xmain.Frame.top.TextLabel
+G2L["5"] = Instance.new("TextLabel", G2L["3"]);
+G2L["5"]["TextWrapped"] = true;
+G2L["5"]["BorderSizePixel"] = 0;
+G2L["5"]["TextSize"] = 14;
+G2L["5"]["TextScaled"] = true;
+G2L["5"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["5"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["5"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["5"]["Size"] = UDim2.new(1, 0, -0.95646, 0);
+G2L["5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["5"]["Text"] = [[script made by: bedman or NDLgen]];
+G2L["5"]["Position"] = UDim2.new(0, 0, 1, 0);
+
+
+-- StarterGui.f3xmain.Frame.UIStroke
+G2L["6"] = Instance.new("UIStroke", G2L["2"]);
+G2L["6"]["Thickness"] = 2;
+G2L["6"]["Color"] = Color3.fromRGB(255, 0, 0);
+
+
+-- StarterGui.f3xmain.Frame.bottom
+G2L["7"] = Instance.new("Frame", G2L["2"]);
+G2L["7"]["BorderSizePixel"] = 0;
+G2L["7"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["7"]["Size"] = UDim2.new(1, 0, 0.12438, 0);
+G2L["7"]["Position"] = UDim2.new(0, 0, 0.97887, 0);
+G2L["7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["7"]["Name"] = [[bottom]];
+
+
+-- StarterGui.f3xmain.Frame.bottom.UIStroke
+G2L["8"] = Instance.new("UIStroke", G2L["7"]);
+G2L["8"]["Thickness"] = 7;
+G2L["8"]["Color"] = Color3.fromRGB(255, 0, 0);
+
+
+-- StarterGui.f3xmain.Frame.bottom.TextButton
+G2L["9"] = Instance.new("TextButton", G2L["7"]);
+G2L["9"]["TextWrapped"] = true;
+G2L["9"]["BorderSizePixel"] = 0;
+G2L["9"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["9"]["TextSize"] = 14;
+G2L["9"]["TextScaled"] = true;
+G2L["9"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["9"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["9"]["Size"] = UDim2.new(1, 0, -0.93782, 0);
+G2L["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["9"]["Text"] = [[Give f3x (only if your admin rank in hd admin games )]];
+G2L["9"]["Position"] = UDim2.new(-0, 0, 1.00001, 0);
+
+
+-- StarterGui.f3xmain.Frame.bottom.TextButton.LocalScript
+G2L["a"] = Instance.new("LocalScript", G2L["9"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main
+G2L["b"] = Instance.new("Frame", G2L["2"]);
+G2L["b"]["BorderSizePixel"] = 0;
+G2L["b"]["BackgroundColor3"] = Color3.fromRGB(23, 0, 0);
+G2L["b"]["Size"] = UDim2.new(0.9636, 0, 0.74058, 0);
+G2L["b"]["Position"] = UDim2.new(0.01733, 0, 0.1831, 0);
+G2L["b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b"]["Name"] = [[main]];
+
+
+-- StarterGui.f3xmain.Frame.main.color
+G2L["c"] = Instance.new("TextButton", G2L["b"]);
+G2L["c"]["TextWrapped"] = true;
+G2L["c"]["BorderSizePixel"] = 0;
+G2L["c"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["c"]["TextSize"] = 14;
+G2L["c"]["TextScaled"] = true;
+G2L["c"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["c"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["c"]["Size"] = UDim2.new(0.14851, 0, -0.1961, 0);
+G2L["c"]["Name"] = [[color]];
+G2L["c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c"]["Text"] = [[Color all]];
+G2L["c"]["Position"] = UDim2.new(0.65333, 0, 0.24676, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.color.LocalScript
+G2L["d"] = Instance.new("LocalScript", G2L["c"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.decal
+G2L["e"] = Instance.new("TextButton", G2L["b"]);
+G2L["e"]["TextWrapped"] = true;
+G2L["e"]["BorderSizePixel"] = 0;
+G2L["e"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["e"]["TextSize"] = 14;
+G2L["e"]["TextScaled"] = true;
+G2L["e"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["e"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["e"]["Size"] = UDim2.new(0.14851, 0, -0.18659, 0);
+G2L["e"]["Name"] = [[decal]];
+G2L["e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["e"]["Text"] = [[Decal spam]];
+G2L["e"]["Position"] = UDim2.new(0.23875, 0, 0.24676, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.decal.LocalScript
+G2L["f"] = Instance.new("LocalScript", G2L["e"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.fire
+G2L["10"] = Instance.new("TextButton", G2L["b"]);
+G2L["10"]["TextWrapped"] = true;
+G2L["10"]["BorderSizePixel"] = 0;
+G2L["10"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["10"]["TextSize"] = 14;
+G2L["10"]["TextScaled"] = true;
+G2L["10"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["10"]["Size"] = UDim2.new(0.14851, 0, -0.20085, 0);
+G2L["10"]["Name"] = [[fire]];
+G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["10"]["Text"] = [[Fire all]];
+G2L["10"]["Position"] = UDim2.new(0.45246, 0, 0.24676, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.fire.LocalScript
+G2L["11"] = Instance.new("LocalScript", G2L["10"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.sky
+G2L["12"] = Instance.new("TextButton", G2L["b"]);
+G2L["12"]["TextWrapped"] = true;
+G2L["12"]["BorderSizePixel"] = 0;
+G2L["12"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["12"]["TextSize"] = 14;
+G2L["12"]["TextScaled"] = true;
+G2L["12"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["12"]["Size"] = UDim2.new(0.14851, 0, -0.18659, 0);
+G2L["12"]["Name"] = [[sky]];
+G2L["12"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["12"]["Text"] = [[Sky]];
+G2L["12"]["Position"] = UDim2.new(0.02228, 0, 0.24676, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.sky.LocalScript
+G2L["13"] = Instance.new("LocalScript", G2L["12"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.unanchor
+G2L["14"] = Instance.new("TextButton", G2L["b"]);
+G2L["14"]["TextWrapped"] = true;
+G2L["14"]["BorderSizePixel"] = 0;
+G2L["14"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["14"]["TextSize"] = 14;
+G2L["14"]["TextScaled"] = true;
+G2L["14"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["14"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["14"]["Size"] = UDim2.new(0.14851, 0, -0.1961, 0);
+G2L["14"]["Name"] = [[unanchor]];
+G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["14"]["Text"] = [[Unanchor all]];
+G2L["14"]["Position"] = UDim2.new(0.828, 0, 0.24201, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.unanchor.LocalScript
+G2L["15"] = Instance.new("LocalScript", G2L["14"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.rotate
+G2L["16"] = Instance.new("TextButton", G2L["b"]);
+G2L["16"]["TextWrapped"] = true;
+G2L["16"]["BorderSizePixel"] = 0;
+G2L["16"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["16"]["TextSize"] = 14;
+G2L["16"]["TextScaled"] = true;
+G2L["16"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["16"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["16"]["Size"] = UDim2.new(0.14851, 0, -0.1961, 0);
+G2L["16"]["Name"] = [[rotate]];
+G2L["16"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["16"]["Text"] = [[Rotate all]];
+G2L["16"]["Position"] = UDim2.new(0.02079, 0, 0.52253, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.rotate.LocalScript
+G2L["17"] = Instance.new("LocalScript", G2L["16"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.mesh
+G2L["18"] = Instance.new("TextButton", G2L["b"]);
+G2L["18"]["TextWrapped"] = true;
+G2L["18"]["BorderSizePixel"] = 0;
+G2L["18"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["18"]["TextSize"] = 14;
+G2L["18"]["TextScaled"] = true;
+G2L["18"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["18"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["18"]["Size"] = UDim2.new(0.14851, 0, -0.1961, 0);
+G2L["18"]["Name"] = [[mesh]];
+G2L["18"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["18"]["Text"] = [[Random Mesh all]];
+G2L["18"]["Position"] = UDim2.new(0.23673, 0, 0.52253, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.mesh.LocalScript
+G2L["19"] = Instance.new("LocalScript", G2L["18"]);
+
+
+
+-- StarterGui.f3xmain.Frame.DragScript
+G2L["1a"] = Instance.new("LocalScript", G2L["2"]);
+G2L["1a"]["Name"] = [[DragScript]];
+
+
+-- StarterGui.f3xmain.Frame.bottom.TextButton.LocalScript
+local function C_a()
+local script = G2L["a"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		local args = {
+			[1] = ";give me build"
+		}
+		game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(unpack(args))
+	end)
+	
+end;
+task.spawn(C_a);
+-- StarterGui.f3xmain.Frame.main.color.LocalScript
+local function C_d()
+local script = G2L["d"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		local function applyColorToPart(part)
+			local args = {
+				[1] = "SyncColor",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Color"] = Color3.new(math.random(), math.random(), math.random()),
+						["UnionColoring"] = true
+					}
+				}
+			}
+	
+			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+	
+			if buildingTools then
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+			end
+		end
+	
+		local function applyColorToAllParts(workspaceObject)
+			for _, obj in pairs(workspaceObject:GetDescendants()) do
+				if obj:IsA("Part") or obj:IsA("MeshPart") then
+					applyColorToPart(obj)
+				end
+			end
+		end
+	
+		while true do
+			applyColorToAllParts(workspace)
+			wait()
+		end
+	end)
+	
+end;
+task.spawn(C_d);
+-- StarterGui.f3xmain.Frame.main.decal.LocalScript
+local function C_f()
+local script = G2L["f"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		local textureId = "rbxassetid://17291005664"
+		local function applyTextureToPart(part)
+			local faces = {Enum.NormalId.Front, Enum.NormalId.Back, Enum.NormalId.Top, Enum.NormalId.Bottom, Enum.NormalId.Left, Enum.NormalId.Right}
+	
+			for _, face in ipairs(faces) do
+				local args = {
+					[1] = "CreateTextures",
+					[2] = {
+						[1] = {
+							["Part"] = part,
+							["Face"] = face,
+							["TextureType"] = "Decal"
+						}
+					}
+				}
+	
+				local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+				if buildingTools then
+					buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+				end
+	
+				local argsSync = {
+					[1] = "SyncTexture",
+					[2] = {
+						[1] = {
+							["Part"] = part,
+							["Face"] = face,
+							["TextureType"] = "Decal",
+							["Texture"] = textureId
+						}
+					}
+				}
+	
+				if buildingTools then
+					buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsSync))
+				end
+			end
+		end
+	
+		local function applyTextureToAllParts(workspaceObject)
+			for _, obj in pairs(workspaceObject:GetDescendants()) do
+				if obj:IsA("Part") or obj:IsA("MeshPart") then
+					applyTextureToPart(obj)
+				end
+			end
+		end
+	
+		applyTextureToAllParts(workspace)
+	end)
+	
+end;
+task.spawn(C_f);
+-- StarterGui.f3xmain.Frame.main.fire.LocalScript
+local function C_11()
+local script = G2L["11"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		local function applyDecorationToPart(part)
+			local argsCreate = {
+				[1] = "CreateDecorations",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire"
+					}
+				}
+			}
+	
+			local argsSync = {
+				[1] = "SyncDecorate",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire",
+						["Size"] = 999
+					}
+				}
+			}
+	
+			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+	
+			if buildingTools then
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsCreate))
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsSync))
+			end
+		end
+	
+		local function applyDecorationToAllParts(workspaceObject)
+			for _, obj in pairs(workspaceObject:GetDescendants()) do
+				if obj:IsA("Part") or obj:IsA("MeshPart") then
+					applyDecorationToPart(obj)
+				end
+			end
+		end
+		applyDecorationToAllParts(workspace)
+	end)
+	
+end;
+task.spawn(C_11);
+-- StarterGui.f3xmain.Frame.main.sky.LocalScript
+local function C_13()
+local script = G2L["13"];
+	local b = script.Parent
+	imageOne = "http://www.roblox.com/asset/?id=169585459"
+	imageTwo = "http://www.roblox.com/asset/?id=169585475"
+	imageThree = "http://www.roblox.com/asset/?id=169585485"
+	imageFour = "http://www.roblox.com/asset/?id=169585502"
+	imageFive = "http://www.roblox.com/asset/?id=169585515"
+	imageSix = "http://www.roblox.com/asset/?id=169585502"
+	imageSeven = "http://www.roblox.com/asset/?id=169585485"
+	imageEight = "http://www.roblox.com/asset/?id=169585475"
+	
+	local images = {imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix, imageSeven, imageEight}
+	
+	b.Activated:Connect(function()
+		local function findBuildingTools()
+			local buildingTools = game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+			if not buildingTools then
+				buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools")
+			end
+			return buildingTools
+		end
+	
+		local buildingTools = findBuildingTools()
+	
+		if buildingTools then
+			local syncAPI = buildingTools:FindFirstChild("SyncAPI")
+			if syncAPI then
+				local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
+				if serverEndpoint then
+					if workspace:FindFirstChild("sky") then
+						local args = {
+							[1] = "Remove",
+							[2] = {
+								[1] = workspace.sky
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+					else
+						local args = {
+							[1] = "CreatePart",
+							[2] = "Normal",
+							[3] = CFrame.new(game.Players.LocalPlayer.Character.Head.Position) * CFrame.Angles(0, 0, 0),
+							[4] = workspace
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SetName",
+							[2] = {
+								[1] = workspace.Part
+							},
+							[3] = "sky"
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncCollision",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["CanCollide"] = false
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "CreateMeshes",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["MeshType"] = Enum.MeshType.FileMesh,
+									["Part"] = workspace.sky
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["MeshId"] = "rbxassetid://8006679977"
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["Scale"] = Vector3.new(67, 67, 67)
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						while true do
+							for _, image in ipairs(images) do
+								local args = {
+									[1] = "SyncMesh",
+									[2] = {
+										[1] = {
+											["Part"] = workspace.sky,
+											["TextureId"] = image
+										}
+									}
+								}
+								serverEndpoint:InvokeServer(unpack(args))
+								wait(0.1)
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+	
+end;
+task.spawn(C_13);
+-- StarterGui.f3xmain.Frame.main.unanchor.LocalScript
+local function C_15()
+local script = G2L["15"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		-- Function to unanchor a part
+		local function unanchor(part)
+			local args = {
+				[1] = "SyncAnchor",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Anchored"] = false
+					}
+				}
+			}
+	
+			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+	
+			if buildingTools then
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+			end
+		end
+		local function unanchorAllParts(workspaceObject)
+			for _, obj in pairs(workspaceObject:GetDescendants()) do
+				if obj:IsA("Part") or obj:IsA("MeshPart") then
+					unanchor(obj)
+				end
+			end
+		end
+	
+		unanchorAllParts(workspace)
+	end)
+	
+end;
+task.spawn(C_15);
+-- StarterGui.f3xmain.Frame.main.rotate.LocalScript
+local function C_17()
+local script = G2L["17"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		local function rotate1(part)
+			local args = {
+				[1] = "SyncRotate",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["CFrame"] = CFrame.new() * CFrame.Angles(
+							math.random() * math.pi,
+							math.random() * math.pi,
+							math.random() * math.pi
+						)
+					}
+				}
+			}
+	
+			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") 
+				or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+	
+			if buildingTools then
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+			end
+		end
+		local function rotate(work)
+			for _, obj in pairs(work:GetDescendants()) do
+				if obj:IsA("Part") or obj:IsA("MeshPart") then
+					rotate1(obj)
+				end
+			end
+		end
+	
+		while true do
+			rotate(workspace)
+			wait()
+		end
+	end)
+	
+end;
+task.spawn(C_17);
+-- StarterGui.f3xmain.Frame.main.mesh.LocalScript
+local function C_19()
+local script = G2L["19"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		local meshTypes = {
+			Enum.MeshType.Brick,
+			Enum.MeshType.Cylinder,
+			Enum.MeshType.FileMesh,
+			Enum.MeshType.Head,
+			Enum.MeshType.Sphere,
+			Enum.MeshType.Wedge
+		}
+	
+		local function removemesh(part)
+			for _, child in pairs(part:GetChildren()) do
+				if child:IsA("MeshPart") or child:IsA("SpecialMesh") then
+					local argsRemove = {
+						[1] = "Remove",
+						[2] = {
+							[1] = child
+						}
+					}
+	
+					-- Get the Building Tools tool from the player's character or backpack
+					local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") 
+						or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+	
+					if buildingTools then
+						buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsRemove))
+					end
+				end
+			end
+		end
+	
+		local function applymesh(part)
+			removemesh(part)
+	
+			local randomMeshType = meshTypes[math.random(1, #meshTypes)]
+	
+			-- Create Mesh request
+			local argsCreate = {
+				[1] = "CreateMeshes",
+				[2] = {
+					[1] = {
+						["Part"] = part
+					}
+				}
+			}
+	
+			local argsSync = {
+				[1] = "SyncMesh",
+				[2] = {
+					[1] = {
+						["MeshType"] = randomMeshType,
+						["Part"] = part
+					}
+				}
+			}
+	
+			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") 
+				or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+	
+			if buildingTools then
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsCreate))
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsSync))
+			end
+		end
+	
+		local function mesh(work)
+			for _, obj in pairs(work:GetDescendants()) do
+				if obj.Name ~= "sky" and (obj:IsA("Part") or obj:IsA("MeshPart")) then
+					applymesh(obj)
+				end
+			end
+		end
+	
+		while true do
+			mesh(workspace)
+			wait()
+		end
+	end)
+	
+end;
+task.spawn(C_19);
+-- StarterGui.f3xmain.Frame.DragScript
+local function C_1a()
+local script = G2L["1a"];
+	--Not made by me, check out this video: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
+	--Put this inside of your Frame and configure the speed if you would like.
+	--Enjoy! Credits go to: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
+	
+	local UIS = game:GetService('UserInputService')
+	local frame = script.Parent
+	local dragToggle = nil
+	local dragSpeed = 0.25
+	local dragStart = nil
+	local startPos = nil
+	
+	local function updateInput(input)
+		local delta = input.Position - dragStart
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+	end
+	
+	frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	
+	UIS.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if dragToggle then
+				updateInput(input)
+			end
+		end
+	end)
+	
+end;
+task.spawn(C_1a);
+
+return G2L["1"], require;
