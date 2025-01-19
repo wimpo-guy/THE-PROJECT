@@ -613,7 +613,11 @@ task.spawn(C_15);
 local function C_17()
 local script = G2L["17"];
 	local b = script.Parent
+	local RunService = game:GetService("RunService")
+	
 	b.Activated:Connect(function()
+		local partsToRotate = {}
+	
 		local function rotate1(part)
 			local args = {
 				[1] = "SyncRotate",
@@ -636,18 +640,26 @@ local script = G2L["17"];
 				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
 			end
 		end
-		local function rotate(work)
+	
+		local function collectParts(work)
 			for _, obj in pairs(work:GetDescendants()) do
 				if obj:IsA("Part") or obj:IsA("MeshPart") then
-					rotate1(obj)
+					table.insert(partsToRotate, obj)
 				end
 			end
 		end
 	
-		while true do
-			rotate(workspace)
-			wait()
-		end
+		local isRotating = true
+	
+		RunService.Heartbeat:Connect(function(_, dt)
+			if isRotating then
+				collectParts(workspace)
+				for _, part in ipairs(partsToRotate) do
+					rotate1(part)
+				end
+				partsToRotate = {}
+			end
+		end)
 	end)
 	
 end;
