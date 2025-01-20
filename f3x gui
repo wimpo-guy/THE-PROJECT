@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 38 | Scripts: 15 | Modules: 0 | Tags: 0
+-- Instances: 40 | Scripts: 16 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.f3xmain
@@ -21,8 +21,8 @@ G2L["2"] = Instance.new("Frame", G2L["1"]);
 G2L["2"]["Active"] = true;
 G2L["2"]["BorderSizePixel"] = 0;
 G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["2"]["Size"] = UDim2.new(0.31294, 0, 0.35323, 0);
-G2L["2"]["Position"] = UDim2.new(0.08288, 0, 0.46517, 0);
+G2L["2"]["Size"] = UDim2.new(0.40596, 0, 0.42786, 0);
+G2L["2"]["Position"] = UDim2.new(0.08288, 0, 0.39055, 0);
 G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 
 
@@ -382,9 +382,30 @@ G2L["25"] = Instance.new("LocalScript", G2L["24"]);
 
 
 
+-- StarterGui.f3xmain.Frame.main.base
+G2L["26"] = Instance.new("TextButton", G2L["b"]);
+G2L["26"]["TextWrapped"] = true;
+G2L["26"]["BorderSizePixel"] = 0;
+G2L["26"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["26"]["TextSize"] = 14;
+G2L["26"]["TextScaled"] = true;
+G2L["26"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["26"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["26"]["Size"] = UDim2.new(0.95316, 0, -0.14734, 0);
+G2L["26"]["Name"] = [[base]];
+G2L["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["26"]["Text"] = [[Create baseplate]];
+G2L["26"]["Position"] = UDim2.new(0.02228, 0, 0.96459, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.base.LocalScript
+G2L["27"] = Instance.new("LocalScript", G2L["26"]);
+
+
+
 -- StarterGui.f3xmain.Frame.DragScript
-G2L["26"] = Instance.new("LocalScript", G2L["2"]);
-G2L["26"]["Name"] = [[DragScript]];
+G2L["28"] = Instance.new("LocalScript", G2L["2"]);
+G2L["28"]["Name"] = [[DragScript]];
 
 
 -- StarterGui.f3xmain.Frame.bottom.TextButton.LocalScript
@@ -1580,9 +1601,86 @@ local script = G2L["25"];
 	
 end;
 task.spawn(C_25);
+-- StarterGui.f3xmain.Frame.main.base.LocalScript
+local function C_27()
+local script = G2L["27"];
+	local b = script.Parent
+	
+	b.Activated:Connect(function()
+		local function findBuildingTools()
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
+	
+			return buildingTools
+		end
+	
+		local buildingTools = findBuildingTools()
+	
+		if buildingTools then
+			local syncAPI = buildingTools:FindFirstChild("SyncAPI")
+			if syncAPI then
+				local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
+				if serverEndpoint then
+						local args = {
+							[1] = "CreatePart",
+							[2] = "Spawn",
+							[3] = CFrame.new(game.Players.LocalPlayer.Character["HumanoidRootPart"].Position) * CFrame.Angles(0, 0, 0),
+							[4] = workspace
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+					
+	
+					local args = {
+						[1] = "SyncResize",
+						[2] = {
+							[1] = {
+								["Part"] = workspace.SpawnLocation,
+								["CFrame"] = CFrame.new(game.Players.LocalPlayer.Character["HumanoidRootPart"].Position) * CFrame.Angles(-0, 0, -0),
+								["Size"] = Vector3.new(999, 1, 999)
+							}
+						}
+					}
+	
+					serverEndpoint:InvokeServer(unpack(args))
+	
+					
+						local args = {
+							[1] = "SetName",
+							[2] = {
+							[3] = workspace.SpawnLocation
+							},
+							[4] = "trapist-1"
+					}
+					
+					serverEndpoint:InvokeServer(unpack(args))
+	
+						
+					end
+				end
+			end
+		end)
+	
+end;
+task.spawn(C_27);
 -- StarterGui.f3xmain.Frame.DragScript
-local function C_26()
-local script = G2L["26"];
+local function C_28()
+local script = G2L["28"];
 	--Not made by me, check out this video: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
 	--Put this inside of your Frame and configure the speed if you would like.
 	--Enjoy! Credits go to: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
@@ -1623,6 +1721,6 @@ local script = G2L["26"];
 	end)
 	
 end;
-task.spawn(C_26);
+task.spawn(C_28);
 
 return G2L["1"], require;
