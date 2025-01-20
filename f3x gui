@@ -709,7 +709,7 @@ local script = G2L["13"];
 						local args = {
 							[1] = "CreatePart",
 							[2] = "Normal",
-							[3] = CFrame.new(game.Players.LocalPlayer.Character.Head.Position) * CFrame.Angles(0, 0, 0),
+							[3] = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position) * CFrame.Angles(0, 0, 0),
 							[4] = workspace
 						}
 						serverEndpoint:InvokeServer(unpack(args))
@@ -732,6 +732,7 @@ local script = G2L["13"];
 								}
 							}
 						}
+						
 						serverEndpoint:InvokeServer(unpack(args))
 	
 						local args = {
@@ -1510,7 +1511,7 @@ local script = G2L["25"];
 						local args = {
 							[1] = "CreatePart",
 							[2] = "Normal",
-							[3] = CFrame.new(game.Players.LocalPlayer.Character.Head.Position) * CFrame.Angles(0, 0, 0),
+							[3] = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position) * CFrame.Angles(0, 0, 0),
 							[4] = workspace
 						}
 						serverEndpoint:InvokeServer(unpack(args))
@@ -1637,6 +1638,15 @@ local script = G2L["27"];
 			if syncAPI then
 				local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
 				if serverEndpoint then
+					if workspace:FindFirstChild("SpawnLocation") then
+						local args = {
+							[1] = "Remove",
+							[2] = {
+								[1] = workspace.SpawnLocation
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+					else
 						local args = {
 							[1] = "CreatePart",
 							[2] = "Spawn",
@@ -1671,6 +1681,7 @@ local script = G2L["27"];
 					serverEndpoint:InvokeServer(unpack(args))
 	
 						
+					end
 					end
 				end
 			end
