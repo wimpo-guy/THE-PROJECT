@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 32 | Scripts: 12 | Modules: 0 | Tags: 0
+-- Instances: 38 | Scripts: 15 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.f3xmain
@@ -319,9 +319,72 @@ G2L["1f"] = Instance.new("LocalScript", G2L["1e"]);
 
 
 
+-- StarterGui.f3xmain.Frame.main.trail
+G2L["20"] = Instance.new("TextButton", G2L["b"]);
+G2L["20"]["TextWrapped"] = true;
+G2L["20"]["BorderSizePixel"] = 0;
+G2L["20"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["20"]["TextSize"] = 14;
+G2L["20"]["TextScaled"] = true;
+G2L["20"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["20"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["20"]["Size"] = UDim2.new(0.14851, 0, -0.1961, 0);
+G2L["20"]["Name"] = [[trail]];
+G2L["20"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20"]["Text"] = [[Trail]];
+G2L["20"]["Position"] = UDim2.new(0.4501, 0, 0.79354, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.trail.LocalScript
+G2L["21"] = Instance.new("LocalScript", G2L["20"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.kill
+G2L["22"] = Instance.new("TextButton", G2L["b"]);
+G2L["22"]["TextWrapped"] = true;
+G2L["22"]["BorderSizePixel"] = 0;
+G2L["22"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["22"]["TextSize"] = 14;
+G2L["22"]["TextScaled"] = true;
+G2L["22"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["22"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["22"]["Size"] = UDim2.new(0.14851, 0, -0.1961, 0);
+G2L["22"]["Name"] = [[kill]];
+G2L["22"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["22"]["Text"] = [[Kill all]];
+G2L["22"]["Position"] = UDim2.new(0.65319, 0, 0.79354, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.kill.LocalScript
+G2L["23"] = Instance.new("LocalScript", G2L["22"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.sky2
+G2L["24"] = Instance.new("TextButton", G2L["b"]);
+G2L["24"]["TextWrapped"] = true;
+G2L["24"]["BorderSizePixel"] = 0;
+G2L["24"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["24"]["TextSize"] = 14;
+G2L["24"]["TextScaled"] = true;
+G2L["24"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["24"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["24"]["Size"] = UDim2.new(0.14851, 0, -0.18659, 0);
+G2L["24"]["Name"] = [[sky2]];
+G2L["24"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["24"]["Text"] = [[Sky2]];
+G2L["24"]["Position"] = UDim2.new(0.82692, 0, 0.78403, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.sky2.LocalScript
+G2L["25"] = Instance.new("LocalScript", G2L["24"]);
+
+
+
 -- StarterGui.f3xmain.Frame.DragScript
-G2L["20"] = Instance.new("LocalScript", G2L["2"]);
-G2L["20"]["Name"] = [[DragScript]];
+G2L["26"] = Instance.new("LocalScript", G2L["2"]);
+G2L["26"]["Name"] = [[DragScript]];
 
 
 -- StarterGui.f3xmain.Frame.bottom.TextButton.LocalScript
@@ -1209,9 +1272,317 @@ local script = G2L["1f"];
 	
 end;
 task.spawn(C_1f);
+-- StarterGui.f3xmain.Frame.main.trail.LocalScript
+local function C_21()
+local script = G2L["21"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	
+	-- Function to get the player's building tool
+	local function getBuildingTool(player)
+		local buildingTool = nil
+		-- Check if the player has a building tool equipped in their character
+		for _, item in pairs(player.Character:GetChildren()) do
+			if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+				buildingTool = item
+				break
+			end
+		end
+	
+		-- If no tool found in character, check the backpack
+		if not buildingTool then
+			for _, item in pairs(player.Backpack:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTool = item
+					break
+				end
+			end
+		end
+		return buildingTool
+	end
+	
+	-- Function to create a trail behind a player's character using the building tool
+	local function createTrailBehindPlayer(player)
+		local buildingTool = getBuildingTool(player)
+		if buildingTool then
+			local syncAPI = buildingTool:FindFirstChild("SyncAPI")
+			if syncAPI then
+				local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
+				if serverEndpoint then
+					-- Keep track of the previous part position to smooth the trail
+					local lastPosition = player.Character.HumanoidRootPart.Position
+	
+					-- Create a trail behind the player by continuously placing parts
+					RunService.Heartbeat:Connect(function()
+						if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+							-- Get the player's current position
+							local playerPos = player.Character.HumanoidRootPart.Position
+	
+							-- Calculate the direction of movement (delta)
+							local movementDirection = playerPos - lastPosition
+	
+							-- If the player has moved, create a part behind them
+							if movementDirection.magnitude > 0.5 then  -- Adjust this threshold for smoother or more frequent parts
+								-- Calculate part position behind the player, smoothing the transition
+								local partPosition = playerPos - player.Character.HumanoidRootPart.CFrame.LookVector * 5  -- 5 studs behind the player
+	
+								-- Create the CFrame to face the player
+								local partOrientation = CFrame.lookAt(partPosition, playerPos)  -- Face the part toward the player's position
+	
+								-- Use the Building Tool's server endpoint to create the part
+								local args = {
+									[1] = "CreatePart",  -- Action: Create part
+									[2] = "Normal",  -- Part type (e.g., "Normal", "Wedge", etc.)
+									[3] = partOrientation,  -- Position and orientation (part faces the player)
+									[4] = workspace  -- Parent the part to workspace
+								}
+	
+								-- Invoke the server to create the part using the Building Tool's server endpoint
+								serverEndpoint:InvokeServer(unpack(args))
+	
+								-- Update the last position to the current one for smooth tracking
+								lastPosition = playerPos
+							end
+						end
+					end)
+				end
+			end
+		end
+	end
+	
+	-- Loop through all players in the game and create a trail for each one
+	Players.PlayerAdded:Connect(function(player)
+		-- Ensure the player's character is fully loaded before starting the trail
+		player.CharacterAdded:Connect(function(character)
+			createTrailBehindPlayer(player)
+		end)
+	end)
+	
+	-- For players already in the game when the script runs
+	for _, player in pairs(Players:GetPlayers()) do
+		if player.Character then
+			createTrailBehindPlayer(player)
+		end
+		end
+		end)
+	
+end;
+task.spawn(C_21);
+-- StarterGui.f3xmain.Frame.main.kill.LocalScript
+local function C_23()
+local script = G2L["23"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		local function removehead()
+			local localPlayer = game:GetService("Players").LocalPlayer
+			local players = game:GetService("Players"):GetPlayers()
+	
+			for _, player in pairs(players) do
+				if player ~= localPlayer then
+					local character = player.Character
+					if character and character:FindFirstChild("Head") then
+						local head = character.Head
+						local buildingTool = nil
+	
+						for _, item in pairs(localPlayer.Character:GetChildren()) do
+							if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+								buildingTool = item
+								break
+							end
+						end
+	
+						if not buildingTool then
+							for _, item in pairs(localPlayer.Backpack:GetChildren()) do
+								if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+									buildingTool = item
+									break
+								end
+							end
+						end
+	
+						if buildingTool then
+							local syncAPI = buildingTool:FindFirstChild("SyncAPI")
+							if syncAPI then
+								local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
+								if serverEndpoint then
+									local args = {
+										[1] = "Remove",
+										[2] = {
+											[1] = head
+										}
+									}
+									serverEndpoint:InvokeServer(unpack(args))
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	
+		removehead()
+	end)
+	
+end;
+task.spawn(C_23);
+-- StarterGui.f3xmain.Frame.main.sky2.LocalScript
+local function C_25()
+local script = G2L["25"];
+	local b = script.Parent
+	imageOne="http://www.roblox.com/asset/?id=14669260354"
+	imageTwo="http://www.roblox.com/asset/?id=14669262932"
+	imageThree="http://www.roblox.com/asset/?id=14669265393"
+	imageFour="http://www.roblox.com/asset/?id=14669267305"
+	imageFive="http://www.roblox.com/asset/?id=14669295808"
+	imageSix="http://www.roblox.com/asset/?id=14669271160"
+	imageSeven="http://www.roblox.com/asset/?id=14669277991"
+	imageEight="http://www.roblox.com/asset/?id=14669280746"
+	ImageNine="http://www.roblox.com/asset/?id=14669288024"
+	ImageTen="http://www.roblox.com/asset/?id=14669284236"
+	
+	local images = {imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix, imageSeven, imageEight, imageNine, imageTen}
+	
+	local warned = false
+	
+	b.Activated:Connect(function()
+		local function findBuildingTools()
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
+	
+			return buildingTools
+		end
+	
+		local buildingTools = findBuildingTools()
+	
+		if buildingTools then
+			local syncAPI = buildingTools:FindFirstChild("SyncAPI")
+			if syncAPI then
+				local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
+				if serverEndpoint then
+					if workspace:FindFirstChild("sky") then
+						local args = {
+							[1] = "Remove",
+							[2] = {
+								[1] = workspace.sky
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+					else
+						local args = {
+							[1] = "CreatePart",
+							[2] = "Normal",
+							[3] = CFrame.new(game.Players.LocalPlayer.Character.Head.Position) * CFrame.Angles(0, 0, 0),
+							[4] = workspace
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SetName",
+							[2] = {
+								[1] = workspace.Part
+							},
+							[3] = "sky"
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncCollision",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["CanCollide"] = false
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "CreateMeshes",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["MeshType"] = Enum.MeshType.FileMesh,
+									["Part"] = workspace.sky
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["MeshId"] = "rbxassetid://8006679977"
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["Scale"] = Vector3.new(67, 67, 67)
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						while true do
+							for _, image in ipairs(images) do
+								local args = {
+									[1] = "SyncMesh",
+									[2] = {
+										[1] = {
+											["Part"] = workspace.sky,
+											["TextureId"] = image
+										}
+									}
+								}
+								serverEndpoint:InvokeServer(unpack(args))
+								wait(0.1)
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+	
+end;
+task.spawn(C_25);
 -- StarterGui.f3xmain.Frame.DragScript
-local function C_20()
-local script = G2L["20"];
+local function C_26()
+local script = G2L["26"];
 	--Not made by me, check out this video: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
 	--Put this inside of your Frame and configure the speed if you would like.
 	--Enjoy! Credits go to: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
@@ -1252,6 +1623,6 @@ local script = G2L["20"];
 	end)
 	
 end;
-task.spawn(C_20);
+task.spawn(C_26);
 
 return G2L["1"], require;
