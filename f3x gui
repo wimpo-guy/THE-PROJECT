@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 28 | Scripts: 10 | Modules: 0 | Tags: 0
+-- Instances: 32 | Scripts: 12 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.f3xmain
@@ -277,9 +277,51 @@ G2L["1b"] = Instance.new("LocalScript", G2L["1a"]);
 
 
 
+-- StarterGui.f3xmain.Frame.main.neon
+G2L["1c"] = Instance.new("TextButton", G2L["b"]);
+G2L["1c"]["TextWrapped"] = true;
+G2L["1c"]["BorderSizePixel"] = 0;
+G2L["1c"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["1c"]["TextSize"] = 14;
+G2L["1c"]["TextScaled"] = true;
+G2L["1c"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["1c"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["1c"]["Size"] = UDim2.new(0.14851, 0, -0.18659, 0);
+G2L["1c"]["Name"] = [[neon]];
+G2L["1c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1c"]["Text"] = [[Neon all]];
+G2L["1c"]["Position"] = UDim2.new(0.02023, 0, 0.79354, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.neon.LocalScript
+G2L["1d"] = Instance.new("LocalScript", G2L["1c"]);
+
+
+
+-- StarterGui.f3xmain.Frame.main.delete
+G2L["1e"] = Instance.new("TextButton", G2L["b"]);
+G2L["1e"]["TextWrapped"] = true;
+G2L["1e"]["BorderSizePixel"] = 0;
+G2L["1e"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["1e"]["TextSize"] = 14;
+G2L["1e"]["TextScaled"] = true;
+G2L["1e"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["1e"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["1e"]["Size"] = UDim2.new(0.14851, 0, -0.1961, 0);
+G2L["1e"]["Name"] = [[delete]];
+G2L["1e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1e"]["Text"] = [[Delete all]];
+G2L["1e"]["Position"] = UDim2.new(0.23673, 0, 0.79354, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.delete.LocalScript
+G2L["1f"] = Instance.new("LocalScript", G2L["1e"]);
+
+
+
 -- StarterGui.f3xmain.Frame.DragScript
-G2L["1c"] = Instance.new("LocalScript", G2L["2"]);
-G2L["1c"]["Name"] = [[DragScript]];
+G2L["20"] = Instance.new("LocalScript", G2L["2"]);
+G2L["20"]["Name"] = [[DragScript]];
 
 
 -- StarterGui.f3xmain.Frame.bottom.TextButton.LocalScript
@@ -299,7 +341,13 @@ task.spawn(C_a);
 local function C_d()
 local script = G2L["d"];
 	local b = script.Parent
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	
 	b.Activated:Connect(function()
+		local partsToColor = {}
+		local warned = false
+	
 		local function applyColorToPart(part)
 			local args = {
 				[1] = "SyncColor",
@@ -312,25 +360,54 @@ local script = G2L["d"];
 				}
 			}
 	
-			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
 	
 			if buildingTools then
 				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+			elseif not warned then
+				warn("Building tool not found")
+				warned = true
 			end
 		end
 	
-		local function applyColorToAllParts(workspaceObject)
+		local function collectParts(workspaceObject)
+			partsToColor = {}
+	
 			for _, obj in pairs(workspaceObject:GetDescendants()) do
 				if obj:IsA("Part") or obj:IsA("MeshPart") then
-					applyColorToPart(obj)
+					table.insert(partsToColor, obj)
 				end
 			end
 		end
 	
-		while true do
-			applyColorToAllParts(workspace)
-			wait()
-		end
+		collectParts(workspace)
+	
+		local isColoring = true
+	
+		RunService.Heartbeat:Connect(function(_, dt)
+			if isColoring then
+				for _, part in ipairs(partsToColor) do
+					applyColorToPart(part)
+				end
+			end
+		end)
 	end)
 	
 end;
@@ -339,8 +416,11 @@ task.spawn(C_d);
 local function C_f()
 local script = G2L["f"];
 	local b = script.Parent
+	local warned = false
+	
 	b.Activated:Connect(function()
 		local textureId = "rbxassetid://17291005664"
+	
 		local function applyTextureToPart(part)
 			local faces = {Enum.NormalId.Front, Enum.NormalId.Back, Enum.NormalId.Top, Enum.NormalId.Bottom, Enum.NormalId.Left, Enum.NormalId.Right}
 	
@@ -356,9 +436,31 @@ local script = G2L["f"];
 					}
 				}
 	
-				local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+				local buildingTools = nil
+				local player = game:GetService("Players").LocalPlayer
+	
+				-- Search for the tool in Character and Backpack
+				for _, item in pairs(player.Character:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+	
+				if not buildingTools then
+					for _, item in pairs(player.Backpack:GetChildren()) do
+						if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+							buildingTools = item
+							break
+						end
+					end
+				end
+				
 				if buildingTools then
 					buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+				elseif not warned then
+					warn("Building tool not found")
+					warned = true
 				end
 	
 				local argsSync = {
@@ -396,6 +498,8 @@ task.spawn(C_f);
 local function C_11()
 local script = G2L["11"];
 	local b = script.Parent
+	local warned = false
+	
 	b.Activated:Connect(function()
 		local function applyDecorationToPart(part)
 			local argsCreate = {
@@ -419,11 +523,32 @@ local script = G2L["11"];
 				}
 			}
 	
-			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			-- Search for the tool in Character and Backpack
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
 	
 			if buildingTools then
 				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsCreate))
 				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsSync))
+			elseif not warned then
+				warn("Building tool not found")
+				warned = true
 			end
 		end
 	
@@ -434,6 +559,7 @@ local script = G2L["11"];
 				end
 			end
 		end
+	
 		applyDecorationToAllParts(workspace)
 	end)
 	
@@ -454,12 +580,29 @@ local script = G2L["13"];
 	
 	local images = {imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix, imageSeven, imageEight}
 	
+	local warned = false
+	
 	b.Activated:Connect(function()
 		local function findBuildingTools()
-			local buildingTools = game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
-			if not buildingTools then
-				buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools")
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
 			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
+	
 			return buildingTools
 		end
 	
@@ -578,7 +721,6 @@ local function C_15()
 local script = G2L["15"];
 	local b = script.Parent
 	b.Activated:Connect(function()
-		-- Function to unanchor a part
 		local function unanchor(part)
 			local args = {
 				[1] = "SyncAnchor",
@@ -590,12 +732,42 @@ local script = G2L["15"];
 				}
 			}
 	
-			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+			local function findBuildingTools()
+				local buildingTools = nil
+				local player = game:GetService("Players").LocalPlayer
+	
+				for _, item in pairs(player.Character:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+	
+				if not buildingTools then
+					for _, item in pairs(player.Backpack:GetChildren()) do
+						if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+							buildingTools = item
+							break
+						end
+					end
+				end
+	
+				return buildingTools
+			end
+	
+			local buildingTools = findBuildingTools()
 	
 			if buildingTools then
-				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+				local syncAPI = buildingTools:FindFirstChild("SyncAPI")
+				if syncAPI then
+					local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
+					if serverEndpoint then
+						serverEndpoint:InvokeServer(unpack(args))
+					end
+				end
 			end
 		end
+	
 		local function unanchorAllParts(workspaceObject)
 			for _, obj in pairs(workspaceObject:GetDescendants()) do
 				if obj:IsA("Part") or obj:IsA("MeshPart") then
@@ -614,52 +786,103 @@ local function C_17()
 local script = G2L["17"];
 	local b = script.Parent
 	local RunService = game:GetService("RunService")
+	local localPlayer = game:GetService("Players").LocalPlayer
+	local warned = false
 	
 	b.Activated:Connect(function()
 		local partsToRotate = {}
 	
-		local function rotate1(part)
-			local args = {
-				[1] = "SyncRotate",
-				[2] = {
-					[1] = {
-						["Part"] = part,
-						["CFrame"] = CFrame.new() * CFrame.Angles(
-							math.random() * math.pi,
-							math.random() * math.pi,
-							math.random() * math.pi
-						)
+		local function rotatePartSmoothly(part, targetRotation)
+			local duration = 1
+			local startRotation = part.CFrame
+			local startTime = tick()
+	
+			local buildingTools = nil
+	
+			for _, item in pairs(localPlayer.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(localPlayer.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
+	
+			if not buildingTools then
+				if not warned then
+					warn("Building tool not found!")
+					warned = true
+				end
+				return
+			end
+	
+			local function updateRotation()
+				local elapsedTime = tick() - startTime
+				local alpha = math.min(elapsedTime / duration, 1)
+	
+				local easedAlpha = (math.sin(alpha * math.pi - math.pi / 2) + 1) / 2
+	
+				local newRotation = startRotation:Lerp(targetRotation, easedAlpha)
+	
+				local args = {
+					[1] = "SyncRotate",
+					[2] = {
+						[1] = {
+							["Part"] = part,
+							["CFrame"] = newRotation
+						}
 					}
 				}
-			}
 	
-			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") 
-				or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
-	
-			if buildingTools then
 				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+	
+				if alpha < 1 then
+					return true
+				else
+					return false
+				end
 			end
+	
+			local updateConnection
+			updateConnection = RunService.Heartbeat:Connect(function()
+				if not updateRotation() then
+					updateConnection:Disconnect()
+				end
+			end)
 		end
 	
-		local function collectParts(work)
-			for _, obj in pairs(work:GetDescendants()) do
-				if obj:IsA("Part") or obj:IsA("MeshPart") then
+		local function collectParts(workspaceObject)
+			partsToRotate = {}
+	
+			for _, obj in pairs(workspaceObject:GetDescendants()) do
+				if (obj:IsA("Part") or obj:IsA("MeshPart")) and not obj:IsDescendantOf(localPlayer.Character) then
 					table.insert(partsToRotate, obj)
 				end
 			end
 		end
 	
-		local isRotating = true
+		local function startContinuousRotation()
+			collectParts(workspace)
 	
-		RunService.Heartbeat:Connect(function(_, dt)
-			if isRotating then
-				collectParts(workspace)
-				for _, part in ipairs(partsToRotate) do
-					rotate1(part)
+			for _, part in ipairs(partsToRotate) do
+				while true do
+					local randomRotation = CFrame.Angles(math.random() * math.pi, math.random() * math.pi, math.random() * math.pi)
+	
+					rotatePartSmoothly(part, randomRotation)
+	
+					wait(1)
 				end
-				partsToRotate = {}
 			end
-		end)
+		end
+	
+		startContinuousRotation()
 	end)
 	
 end;
@@ -668,6 +891,8 @@ task.spawn(C_17);
 local function C_19()
 local script = G2L["19"];
 	local b = script.Parent
+	local warned = false
+	
 	b.Activated:Connect(function()
 		local meshTypes = {
 			Enum.MeshType.Brick,
@@ -688,12 +913,30 @@ local script = G2L["19"];
 						}
 					}
 	
-					-- Get the Building Tools tool from the player's character or backpack
-					local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") 
-						or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+					local buildingTools = nil
+					local player = game:GetService("Players").LocalPlayer
+	
+					for _, item in pairs(player.Character:GetChildren()) do
+						if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+							buildingTools = item
+							break
+						end
+					end
+	
+					if not buildingTools then
+						for _, item in pairs(player.Backpack:GetChildren()) do
+							if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+								buildingTools = item
+								break
+							end
+						end
+					end
 	
 					if buildingTools then
 						buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsRemove))
+					elseif not warned then
+						warn("Building tool not found")
+						warned = true
 					end
 				end
 			end
@@ -704,7 +947,6 @@ local script = G2L["19"];
 	
 			local randomMeshType = meshTypes[math.random(1, #meshTypes)]
 	
-			-- Create Mesh request
 			local argsCreate = {
 				[1] = "CreateMeshes",
 				[2] = {
@@ -724,12 +966,31 @@ local script = G2L["19"];
 				}
 			}
 	
-			local buildingTools = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools") 
-				or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools")
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
 	
 			if buildingTools then
 				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsCreate))
 				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsSync))
+			elseif not warned then
+				warn("Building tool not found")
+				warned = true
 			end
 		end
 	
@@ -753,22 +1014,48 @@ task.spawn(C_19);
 local function C_1b()
 local script = G2L["1b"];
 	local b = script.Parent
-	local buildingtools = game.Players.LocalPlayer.Backpack:FindFirstChild("Building Tools") or game.Players.LocalPlayer.Character:FindFirstChild("Building Tools")
-	b.Activated:Connect(function()
-		-- Script generated by SimpleSpy - credits to exx#9394
+	local warned = false
 	
-		local args = {
+	b.Activated:Connect(function()
+		local buildingtools = nil
+		local player = game.Players.LocalPlayer
+	
+		-- Search for any tool with SyncAPI in Character or Backpack
+		for _, item in pairs(player.Character:GetChildren()) do
+			if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+				buildingtools = item
+				break
+			end
+		end
+	
+		if not buildingtools then
+			for _, item in pairs(player.Backpack:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingtools = item
+					break
+				end
+			end
+		end
+	
+		if not buildingtools then
+			if not warned then
+				warn("Building tool not found")
+				warned = true
+			end
+			return
+		end
+	
+		local args1 = {
 			[1] = "CreatePart",
 			[2] = "Normal",
 			[3] = CFrame.new(0, -999, 0) * CFrame.Angles(-0, 0, -0),
 			[4] = workspace
 		}
 	
-		buildingtools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+		buildingtools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args1))
 		wait(0.5)
-		-- Script generated by SimpleSpy - credits to exx#9394
 	
-		local args = {
+		local args2 = {
 			[1] = "CreateGroup",
 			[2] = "Folder",
 			[3] = workspace,
@@ -777,11 +1064,10 @@ local script = G2L["1b"];
 			}
 		}
 	
-		buildingtools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+		buildingtools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args2))
 		wait(0.5)
-		-- Script generated by SimpleSpy - credits to exx#9394
 	
-		local args = {
+		local args3 = {
 			[1] = "SetName",
 			[2] = {
 				[1] = workspace.Folder
@@ -789,14 +1075,143 @@ local script = G2L["1b"];
 			[3] = "HDAdminWorkspaceFolder"
 		}
 	
-		buildingtools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+		buildingtools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args3))
 	end)
 	
 end;
 task.spawn(C_1b);
+-- StarterGui.f3xmain.Frame.main.neon.LocalScript
+local function C_1d()
+local script = G2L["1d"];
+	local b = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	b.Activated:Connect(function()
+		local parto = {}
+		local warned = false
+	
+		local function neon(part)
+			local materialArgs = {
+				[1] = "SyncMaterial",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Material"] = Enum.Material.Neon
+					}
+				}
+			}
+	
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			-- Search for the tool in Backpack or Character
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
+	
+			if buildingTools then
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(materialArgs))
+			elseif not warned then
+				warn("Building tool not found")
+				warned = true
+			end
+		end
+	
+		local function collectParts(workspaceObject)
+			parto = {}
+	
+			for _, obj in pairs(workspaceObject:GetDescendants()) do
+				if obj:IsA("Part") or obj:IsA("MeshPart") then
+					table.insert(parto, obj)
+				end
+			end
+		end
+	
+		collectParts(workspace)
+		local isColoring = true
+	
+		RunService.Heartbeat:Connect(function(_, dt)
+			if isColoring then
+				for _, part in ipairs(parto) do
+					neon(part)
+				end
+				isColoring = false
+			end
+		end)
+	end)
+	
+end;
+task.spawn(C_1d);
+-- StarterGui.f3xmain.Frame.main.delete.LocalScript
+local function C_1f()
+local script = G2L["1f"];
+	local b = script.Parent
+	b.Activated:Connect(function()
+		local function unanchor(part)
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
+	
+			if buildingTools then
+				local syncAPI = buildingTools:FindFirstChild("SyncAPI")
+				if syncAPI then
+					local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
+					if serverEndpoint then
+						local args = {
+							[1] = "Remove",
+							[2] = {
+								[1] = part
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+					end
+				end
+			end
+		end
+	
+		local function unanchorAllParts(workspaceObject)
+			for _, obj in pairs(workspaceObject:GetDescendants()) do
+				if obj:IsA("Part") or obj:IsA("MeshPart") then
+					unanchor(obj)
+				end
+			end
+		end
+	
+		unanchorAllParts(workspace)
+	end)
+	
+end;
+task.spawn(C_1f);
 -- StarterGui.f3xmain.Frame.DragScript
-local function C_1c()
-local script = G2L["1c"];
+local function C_20()
+local script = G2L["20"];
 	--Not made by me, check out this video: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
 	--Put this inside of your Frame and configure the speed if you would like.
 	--Enjoy! Credits go to: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
@@ -837,6 +1252,6 @@ local script = G2L["1c"];
 	end)
 	
 end;
-task.spawn(C_1c);
+task.spawn(C_20);
 
 return G2L["1"], require;
