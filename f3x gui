@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 40 | Scripts: 16 | Modules: 0 | Tags: 0
+-- Instances: 42 | Scripts: 17 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.f3xmain
@@ -391,7 +391,7 @@ G2L["26"]["TextSize"] = 14;
 G2L["26"]["TextScaled"] = true;
 G2L["26"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
 G2L["26"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["26"]["Size"] = UDim2.new(0.95316, 0, -0.14734, 0);
+G2L["26"]["Size"] = UDim2.new(0.48548, 0, -0.14734, 0);
 G2L["26"]["Name"] = [[base]];
 G2L["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["26"]["Text"] = [[Create baseplate]];
@@ -403,9 +403,30 @@ G2L["27"] = Instance.new("LocalScript", G2L["26"]);
 
 
 
+-- StarterGui.f3xmain.Frame.main.sky3
+G2L["28"] = Instance.new("TextButton", G2L["b"]);
+G2L["28"]["TextWrapped"] = true;
+G2L["28"]["BorderSizePixel"] = 0;
+G2L["28"]["TextColor3"] = Color3.fromRGB(255, 0, 0);
+G2L["28"]["TextSize"] = 14;
+G2L["28"]["TextScaled"] = true;
+G2L["28"]["BackgroundColor3"] = Color3.fromRGB(49, 0, 0);
+G2L["28"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["28"]["Size"] = UDim2.new(0.42603, 0, -0.14734, 0);
+G2L["28"]["Name"] = [[sky3]];
+G2L["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["28"]["Text"] = [[Sky3]];
+G2L["28"]["Position"] = UDim2.new(0.5494, 0, 0.96459, 0);
+
+
+-- StarterGui.f3xmain.Frame.main.sky3.LocalScript
+G2L["29"] = Instance.new("LocalScript", G2L["28"]);
+
+
+
 -- StarterGui.f3xmain.Frame.DragScript
-G2L["28"] = Instance.new("LocalScript", G2L["2"]);
-G2L["28"]["Name"] = [[DragScript]];
+G2L["2a"] = Instance.new("LocalScript", G2L["2"]);
+G2L["2a"]["Name"] = [[DragScript]];
 
 
 -- StarterGui.f3xmain.Frame.bottom.TextButton.LocalScript
@@ -885,7 +906,7 @@ local script = G2L["17"];
 			local buildingTools = nil
 	
 			for _, item in pairs(localPlayer.Character:GetChildren()) do
-				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+				if item:IsA("Tool") and item:WaitForChild("SyncAPI") then
 					buildingTools = item
 					break
 				end
@@ -893,7 +914,7 @@ local script = G2L["17"];
 	
 			if not buildingTools then
 				for _, item in pairs(localPlayer.Backpack:GetChildren()) do
-					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					if item:IsA("Tool") and item:WaitForChild("SyncAPI") then
 						buildingTools = item
 						break
 					end
@@ -926,7 +947,7 @@ local script = G2L["17"];
 					}
 				}
 	
-				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+				buildingTools:WaitForChild("SyncAPI").ServerEndpoint:InvokeServer(unpack(args))
 	
 				if alpha < 1 then
 					return true
@@ -1591,7 +1612,7 @@ local script = G2L["25"];
 									}
 								}
 								serverEndpoint:InvokeServer(unpack(args))
-								wait(0.1)
+								task.wait(0.06)
 							end
 						end
 					end
@@ -1689,9 +1710,162 @@ local script = G2L["27"];
 	
 end;
 task.spawn(C_27);
+-- StarterGui.f3xmain.Frame.main.sky3.LocalScript
+local function C_29()
+local script = G2L["29"];
+	local b = script.Parent
+	imageOne="http://www.roblox.com/asset/?id=135024233342555"
+	imageTwo="http://www.roblox.com/asset/?id=133039523050688"
+	imageThree="http://www.roblox.com/asset/?id=94268697504701"
+	imageFour="http://www.roblox.com/asset/?id=132507018134136"
+	imageFive="http://www.roblox.com/asset/?id=95835007909992"
+	imageSix="http://www.roblox.com/asset/?id=100580223340411"
+	imageSeven="http://www.roblox.com/asset/?id=86886563303393"
+	imageEight="http://www.roblox.com/asset/?id=71539814221156"
+	ImageNine="http://www.roblox.com/asset/?id=120096274974418"
+	ImageTen="http://www.roblox.com/asset/?id=78136310468942"
+	
+	local images = {imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix, imageSeven, imageEight, ImageNine, ImageTen}
+	
+	local warned = false
+	
+	b.Activated:Connect(function()
+		local function findBuildingTools()
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+	
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+	
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
+	
+			return buildingTools
+		end
+	
+		local buildingTools = findBuildingTools()
+	
+		if buildingTools then
+			local syncAPI = buildingTools:FindFirstChild("SyncAPI")
+			if syncAPI then
+				local serverEndpoint = syncAPI:FindFirstChild("ServerEndpoint")
+				if serverEndpoint then
+					if workspace:FindFirstChild("sky") then
+						local args = {
+							[1] = "Remove",
+							[2] = {
+								[1] = workspace.sky
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+					else
+						local args = {
+							[1] = "CreatePart",
+							[2] = "Normal",
+							[3] = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position) * CFrame.Angles(0, 0, 0),
+							[4] = workspace
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SetName",
+							[2] = {
+								[1] = workspace.Part
+							},
+							[3] = "sky"
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncCollision",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["CanCollide"] = false
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "CreateMeshes",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["MeshType"] = Enum.MeshType.FileMesh,
+									["Part"] = workspace.sky
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["MeshId"] = "rbxassetid://8006679977"
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["Part"] = workspace.sky,
+									["Scale"] = Vector3.new(67, 67, 67)
+								}
+							}
+						}
+						serverEndpoint:InvokeServer(unpack(args))
+	
+						while true do
+							for _, image in ipairs(images) do
+								local args = {
+									[1] = "SyncMesh",
+									[2] = {
+										[1] = {
+											["Part"] = workspace.sky,
+											["TextureId"] = image
+										}
+									}
+								}
+								serverEndpoint:InvokeServer(unpack(args))
+								task.wait(0.1)
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+	
+end;
+task.spawn(C_29);
 -- StarterGui.f3xmain.Frame.DragScript
-local function C_28()
-local script = G2L["28"];
+local function C_2a()
+local script = G2L["2a"];
 	--Not made by me, check out this video: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
 	--Put this inside of your Frame and configure the speed if you would like.
 	--Enjoy! Credits go to: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
@@ -1732,6 +1906,6 @@ local script = G2L["28"];
 	end)
 	
 end;
-task.spawn(C_28);
+task.spawn(C_2a);
 
 return G2L["1"], require;
