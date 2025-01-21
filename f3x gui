@@ -755,6 +755,17 @@ local script = G2L["13"];
 						}
 						
 						serverEndpoint:InvokeServer(unpack(args))
+						
+						local args = {
+							[1] = "SetLocked",
+							[2] = {
+								[1] = workspace.sky
+							},
+							[3] = true
+						}
+	
+						serverEndpoint:InvokeServer(unpack(args))
+	
 	
 						local args = {
 							[1] = "CreateMeshes",
@@ -1485,7 +1496,7 @@ local script = G2L["25"];
 	ImageNine="http://www.roblox.com/asset/?id=14669288024"
 	ImageTen="http://www.roblox.com/asset/?id=14669284236"
 	
-	local images = {imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix, imageSeven, imageEight, imageNine, imageTen}
+	local images = {imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix, imageSeven, imageEight, ImageNine, ImageTen}
 	
 	local warned = false
 	
@@ -1555,6 +1566,16 @@ local script = G2L["25"];
 								}
 							}
 						}
+						serverEndpoint:InvokeServer(unpack(args))
+						
+						local args = {
+							[1] = "SetLocked",
+							[2] = {
+								[1] = workspace.sky
+							},
+							[3] = true
+						}
+	
 						serverEndpoint:InvokeServer(unpack(args))
 	
 						local args = {
@@ -1795,6 +1816,16 @@ local script = G2L["29"];
 								}
 							}
 						}
+						serverEndpoint:InvokeServer(unpack(args))
+						
+						local args = {
+							[1] = "SetLocked",
+							[2] = {
+								[1] = workspace.sky
+							},
+							[3] = true
+						}
+	
 						serverEndpoint:InvokeServer(unpack(args))
 	
 						local args = {
