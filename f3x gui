@@ -437,7 +437,7 @@ local script = G2L["a"];
 		local args = {
 			[1] = ";give me build"
 		}
-		game:GetService("ReplicatedStorage").HDAdminClient.Signals.RequestCommand:InvokeServer(unpack(args))
+		game:GetService("ReplicatedStorage").HDAdminHDClient.Signals.RequestCommand:InvokeServer(unpack(args))
 	end)
 	
 end;
