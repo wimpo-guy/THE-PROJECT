@@ -1355,7 +1355,7 @@ local script = G2L["b"];
 	local b = script.Parent
 	b.Activated:Connect(function()
 		local args = {
-			[1] = ";give me build"
+			[1] = ";btools"
 		}
 		game:GetService("ReplicatedStorage").HDAdminHDClient.Signals.RequestCommand:InvokeServer(unpack(args))
 	end)
